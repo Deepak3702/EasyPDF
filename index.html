@@ -36,25 +36,19 @@
             --text-light: #6c757d;
             --border-color: #dee2e6;
             --max-width: 1200px;
-            --border-radius: 12px;
-            --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            --box-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
-            --gradient-start: #e0f7ff;
-            --gradient-end: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.12);
         }
 
         [data-theme="dark"] {
-            --primary-blue: #4dabf7;
-            --primary-blue-dark: #339af0;
             --background-light: #121212;
             --background-white: #1e1e1e;
             --text-dark: #e0e0e0;
             --text-light: #a0a0a0;
-            --border-color: #333;
-            --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            --box-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.6);
-            --gradient-start: #1c2b4d;
-            --gradient-end: #121212;
+            --border-color: #444;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --box-shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.6);
         }
 
         /* Base & Accessibility */
@@ -64,34 +58,23 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--background-light);
             color: var(--text-dark);
-            line-height: 1.7;
+            line-height: 1.6;
             font-size: 16px;
             transition: background-color 0.3s, color 0.3s;
         }
         .container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; }
-        h1, h2, h3 { font-weight: 700; }
+        h1, h2, h3 { font-weight: 600; }
 
         /* Header & Navigation */
-        .header {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-        [data-theme="dark"] .header {
-            background-color: rgba(30, 30, 30, 0.8);
-        }
+        .header { background-color: var(--background-white); padding: 15px 0; position: sticky; top: 0; width: 100%; z-index: 1000; transition: background-color 0.3s, box-shadow 0.3s; }
+        .header.scrolled { box-shadow: var(--box-shadow); }
         .navbar { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); text-decoration: none; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--primary-blue); text-decoration: none; }
         .nav-menu { display: flex; list-style: none; gap: 20px; align-items: center; }
         .nav-link { text-decoration: none; color: var(--text-dark); font-weight: 500; transition: color 0.3s; }
         .nav-link:hover { color: var(--primary-blue); }
+        .hamburger { display: none; cursor: pointer; z-index: 1002; }
+        .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--text-dark); transition: all 0.3s ease-in-out; }
         
         /* Dark Mode Toggle */
         .theme-switch-wrapper { display: flex; align-items: center; }
@@ -103,106 +86,39 @@
         input:checked + .slider:before { transform: translateX(24px); }
 
         /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 120px 20px;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            position: relative;
-            overflow: hidden;
-            transition: background 0.3s;
-        }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; font-weight: 800; }
-        .hero p { font-size: 1.25rem; color: var(--text-light); max-width: 700px; margin: 0 auto 30px auto; }
-        .hero .cta-button {
-            background: var(--primary-blue);
-            color: white;
-            padding: 16px 32px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            display: inline-block;
-            transition: transform 0.2s ease, background-color 0.3s;
-            box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
-        }
-        .hero .cta-button:hover { transform: translateY(-3px); background-color: var(--primary-blue-dark); }
+        .hero { text-align: center; padding: 80px 20px; background: linear-gradient(to bottom, var(--background-white), var(--background-light)); transition: background 0.3s; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; color: var(--text-light); max-width: 700px; margin: 0 auto; }
 
-        /* Tools Grid */
-        main { padding: 40px 0; }
-        #tools-grid { display: grid; gap: 30px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
-        .tool-card {
-            background-color: var(--background-white);
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s, background-color 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        .tool-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--box-shadow-hover);
-            border-color: var(--primary-blue);
-        }
-        .tool-card .icon-wrapper {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 20px auto;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--icon-bg-color, #e7f0fe);
-            transition: background-color 0.3s;
-        }
-        .tool-card .icon { width: 32px; height: 32px; }
-        .tool-card .icon svg { color: var(--icon-color, var(--primary-blue)); }
-        .tool-card h3 { font-size: 1.25rem; margin-bottom: 10px; }
-        .tool-card p { font-size: 0.95rem; color: var(--text-light); }
-        .tool-card .new-badge { position: absolute; top: 10px; right: -30px; background: var(--primary-blue); color: white; padding: 2px 30px; font-size: 0.8rem; transform: rotate(45deg); }
-
-        /* Modal - FIXED & ENHANCED */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.6); animation: fadeIn 0.3s ease; }
-        .modal-content-wrapper { display: flex; align-items: center; justify-content: center; min-height: 100%; padding: 20px; }
-        .modal-content { background-color: var(--background-white); border-radius: var(--border-radius); box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 100%; max-width: 800px; animation: slideIn 0.4s ease-out; position: relative; display: flex; }
-        .modal-main { flex-grow: 1; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; border-bottom: 1px solid var(--border-color); background-color: var(--background-light); border-top-left-radius: var(--border-radius); border-top-right-radius: var(--border-radius); }
-        .modal-header h2 { font-size: 1.5rem; color: var(--primary-blue); }
-        .close-button { background: none; border: none; font-size: 1.8rem; color: var(--text-light); cursor: pointer; transition: color 0.2s; }
-        .close-button:hover { color: var(--text-dark); }
-        .modal-body { padding: 30px; }
-        .file-input { width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1; }
-        .file-drop-area { border: 3px dashed var(--border-color); border-radius: var(--border-radius); padding: 40px; text-align: center; transition: background-color 0.3s, border-color 0.3s; cursor: pointer; }
-        .file-drop-area.dragover { background-color: #e7f0fe; border-color: var(--primary-blue); }
-        .file-drop-area h3 { margin-bottom: 10px; }
-        .file-drop-area p { color: var(--text-light); margin-bottom: 15px; }
-        .file-label-button { background-color: var(--primary-blue); color: white; padding: 12px 25px; border-radius: 50px; cursor: pointer; display: inline-block; transition: background-color 0.3s; font-weight: 500; }
-        .file-label-button:hover { background-color: var(--primary-blue-dark); }
-        .file-list { list-style: none; margin-top: 20px; }
-        .file-list li { background: var(--background-light); padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
-        .remove-file-btn { background: none; border: none; color: #dc3545; font-weight: bold; cursor: pointer; font-size: 1.2rem; }
-        .tool-options { margin: 20px 0; }
-        .tool-options label { display: block; margin-bottom: 8px; font-weight: 500; }
-        .tool-options input, .tool-options select { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--background-white); color: var(--text-dark); }
-        .process-button { width: 100%; padding: 15px; font-size: 1.2rem; font-weight: 600; background-color: var(--primary-blue); color: white; border: none; border-radius: 50px; cursor: pointer; transition: background-color 0.3s, transform 0.2s; margin-top: 20px; }
-        .process-button:disabled { background-color: #ccc; cursor: not-allowed; }
-        .process-button:not(:disabled):hover { background-color: var(--primary-blue-dark); transform: translateY(-2px); }
-        #output-area { margin-top: 20px; }
-        .download-link { display: inline-block; background: #198754; color: white; padding: 10px 20px; text-decoration: none; border-radius: 50px; }
-        
-        /* Loader */
-        .loader-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.8); z-index: 10; justify-content: center; align-items: center; flex-direction: column; border-radius: var(--border-radius); }
-        [data-theme="dark"] .loader-overlay { background: rgba(30, 30, 30, 0.8); }
-        .spinner { width: 60px; height: 60px; border: 6px solid var(--border-color); border-top-color: var(--primary-blue); border-radius: 50%; animation: spin 1s linear infinite; }
-        #loader-text { margin-top: 20px; font-weight: 500; font-size: 1.1rem; color: var(--text-light); }
-        
-        /* Other styles */
+        /* Ad Placeholders */
         .ad-placeholder { border: 2px dashed var(--border-color); display: flex; justify-content: center; align-items: center; color: var(--text-light); background-color: var(--background-white); font-size: 0.9rem; margin: 40px auto; }
         .ad-banner-top { width: 728px; height: 90px; }
         .ad-in-article { max-width: 100%; height: 250px; }
         .ad-sidebar-modal { width: 160px; height: 600px; flex-shrink: 0; margin-left: 20px; }
+
+        /* Tools Grid */
+        main { padding: 40px 0; }
+        #tools-grid { display: grid; gap: 25px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        .tool-card {
+            background-color: var(--background-white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s, background-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card:hover { transform: translateY(-5px); box-shadow: var(--box-shadow-hover); border-color: var(--primary-blue); }
+        .tool-card .icon { margin-bottom: 15px; width: 48px; height: 48px; }
+        .tool-card .icon svg { color: var(--icon-color, var(--primary-blue)); }
+        .tool-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .tool-card p { font-size: 0.9rem; color: var(--text-light); }
+        .tool-card .new-badge { position: absolute; top: 10px; right: -30px; background: var(--primary-blue); color: white; padding: 2px 30px; font-size: 0.8rem; transform: rotate(45deg); }
+
+        /* Article Section */
         #about-section { background: var(--background-white); padding: 60px 0; margin-top: 60px; transition: background-color 0.3s; }
         #about-section .container { max-width: 800px; }
         #about-section h2 { text-align: center; font-size: 2.5rem; margin-bottom: 40px; color: var(--primary-blue); }
@@ -210,24 +126,71 @@
         #about-section p, #about-section li { color: var(--text-dark); margin-bottom: 20px; font-size: 1.1rem; line-height: 1.7; }
         #about-section ul, #about-section ol { padding-left: 40px; }
         #about-section strong { color: var(--text-dark); font-weight: 600; }
+        .cta-button { background-color: var(--primary-blue); color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin-top: 20px; transition: background-color 0.3s; }
+        .cta-button:hover { background-color: var(--primary-blue-dark); }
+
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.6); animation: fadeIn 0.3s ease; }
+        .modal-content-wrapper { display: flex; align-items: center; justify-content: center; min-height: 100%; padding: 20px; }
+        .modal-content { background-color: var(--background-white); border-radius: var(--border-radius); box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 100%; max-width: 800px; animation: slideIn 0.4s ease-out; position: relative; display: flex; }
+        .modal-main { padding: 30px; flex-grow: 1; max-height: 90vh; overflow-y: auto; }
+        .modal-header h2 { color: var(--primary-blue) }
+        
+        /* Flipbook Modal Specifics */
+        .flipbook-modal .modal-content { max-width: 90vw; width: 1200px; }
+        #flipbook-container { width: 100%; height: 70vh; }
+
+        /* Footer */
         .footer { background-color: #212529; color: #ccc; padding: 50px 0 20px; margin-top: 60px; text-align: center; }
         .social-icons { list-style: none; display: flex; justify-content: center; gap: 25px; margin-bottom: 20px; }
         .social-icons a { color: #ccc; font-size: 1.5rem; transition: color 0.3s; }
         .social-icons a:hover { color: white; }
         .footer-bottom { padding-top: 20px; border-top: 1px solid #444; font-size: 0.9rem; }
         .footer-bottom p { margin-bottom: 10px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        /* Other styles from previous version remain the same */
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .close-button { color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer; transition: color 0.3s; }
+        .close-button:hover, .close-button:focus { color: var(--text-dark); }
+        .file-drop-area { border: 3px dashed var(--border-color); border-radius: var(--border-radius); padding: 40px; text-align: center; transition: background-color 0.3s, border-color 0.3s; cursor: pointer; }
+        .file-drop-area.dragover { background-color: #e7f0fe; border-color: var(--primary-blue); }
+        .file-input { display: none; }
+        .file-label-button { background-color: var(--primary-blue); color: white; padding: 12px 25px; border-radius: 5px; cursor: pointer; display: inline-block; transition: background-color 0.3s; }
+        .file-label-button:hover { background-color: var(--primary-blue-dark); }
+        .file-list { list-style: none; margin-top: 20px; }
+        .file-list li { background: var(--background-light); padding: 10px 15px; border-radius: 5px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+        .remove-file-btn { background: none; border: none; color: #dc3545; font-weight: bold; cursor: pointer; font-size: 1.2rem; }
+        .tool-options { margin: 20px 0; }
+        .tool-options label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .tool-options input, .tool-options select { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 5px; background-color: var(--background-white); color: var(--text-dark); }
+        .process-button { width: 100%; padding: 15px; font-size: 1.2rem; font-weight: 600; background-color: var(--primary-blue); color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; margin-top: 20px; }
+        .process-button:disabled { background-color: #ccc; cursor: not-allowed; }
+        .process-button:not(:disabled):hover { background-color: var(--primary-blue-dark); }
+        #output-area { margin-top: 20px; }
+        .download-link { display: inline-block; background: #198754; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
+        .loader-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.8); z-index: 10; justify-content: center; align-items: center; flex-direction: column; border-radius: var(--border-radius); }
+        [data-theme="dark"] .loader-overlay { background: rgba(30, 30, 30, 0.8); }
+        .spinner { border: 6px solid #f3f3f3; border-top: 6px solid var(--primary-blue); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
+        #loader-text { margin-top: 15px; font-weight: 500; }
+        #organize-pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px; margin-top: 20px; }
+        .organize-page-item { border: 1px solid var(--border-color); border-radius: 5px; text-align: center; position: relative; cursor: grab; background: var(--background-white); }
+        .organize-page-item:grabbing { cursor: grabbing; }
+        .organize-page-item canvas { width: 100%; height: auto; display: block; }
+        .organize-page-item .page-number { font-size: 0.8rem; padding: 5px; }
+        .organize-page-item .delete-page-btn { position: absolute; top: -5px; right: -5px; background: #dc3545; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+        @media (max-width: 992px) { .ad-sidebar-modal { display: none; } }
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .ad-banner-top { width: 100%; max-width: 320px; }
-            .hamburger { display: block; }
             .nav-menu { position: fixed; left: -100%; top: 0; flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 100vh; background-color: var(--background-white); transition: 0.3s; z-index: 1001; }
             .nav-menu.active { left: 0; }
+            .hamburger { display: block; }
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
             .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+            .hero h1 { font-size: 2.5rem; }
+            .ad-banner-top { width: 100%; max-width: 320px; }
         }
     </style>
 </head>
@@ -258,11 +221,10 @@
 
     <main>
         <!-- Hero Section -->
-        <section class="hero">
+        <section class="hero reveal">
             <div class="container">
-                <h1>The Ultimate PDF Toolkit</h1>
-                <p>Securely manage, convert, and edit your PDF files for free, right in your browser. No uploads, no sign-ups.</p>
-                <a href="#tools-grid" class="cta-button">Explore PDF Tools</a>
+                <h1>Every tool you need to work with PDFs in one place.</h1>
+                <p>Completely free, secure, and easy to use. Convert, edit, merge, and modify your PDF files without installing any software.</p>
             </div>
         </section>
 
@@ -270,12 +232,11 @@
         <div class="ad-placeholder ad-banner-top">
             <!-- PASTE YOUR 728x90 AD CODE (e.g., Google AdSense) HERE -->
             <!-- Example: <script async src="..."></script> -->
-            <span>Advertisement (728x90)</span>
+            <span><script type="text/javascript"> 	atOptions = { 		'key' : '5105f4b7c081dde837709b2ef03fd969', 		'format' : 'iframe', 		'height' : 90, 		'width' : 728, 		'params' : {} 	}; </script> <script type="text/javascript" src="//www.highperformanceformat.com/5105f4b7c081dde837709b2ef03fd969/invoke.js"></script></span>
         </div>
 
         <!-- Tools Grid -->
-        <section id="tools-section" class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 40px;">All PDF Tools</h2>
+        <section id="tools-section" class="container reveal">
             <div id="tools-grid">
                 <!-- Tool cards are dynamically inserted here -->
             </div>
@@ -284,7 +245,7 @@
         <!-- Article Section -->
         <section id="about-section">
             <div class="container">
-                <h2>The EasyPDF Commitment</h2>
+                <h2>The Ultimate Free Online PDF Toolkit</h2>
                 
                 <h3>Why Choose EasyPDF?</h3>
                 <p>In a digital world, you need tools that are powerful, safe, and easy to use. <strong>EasyPDF</strong> was built to be your go-to solution for everything PDF, and here’s why it stands out:</p>
@@ -294,12 +255,12 @@
                     <li><strong>Incredibly Easy:</strong> With a clean design and simple drag-and-drop interface, you can get your work done in seconds, not minutes.</li>
                     <li><strong>No Installation Needed:</strong> Free up your hard drive. <strong>EasyPDF</strong> works on any device with a modern web browser—no software required.</li>
                 </ul>
-                <a href="#tools-grid" class="cta-button">Try a Tool Now</a>
+                <a href="#tools-grid" class="cta-button">Get Started Now</a>
 
                 <!-- In-Article Ad Placeholder Script -->
                 <div class="ad-placeholder ad-in-article">
                     <!-- PASTE YOUR RESPONSIVE IN-ARTICLE AD CODE HERE -->
-                    <span>Advertisement</span>
+                    <span><script type="text/javascript"> 	atOptions = { 		'key' : 'f5645159f6c7c243121ef82ffd9553cf', 		'format' : 'iframe', 		'height' : 250, 		'width' : 300, 		'params' : {} 	}; </script> <script type="text/javascript" src="//www.highperformanceformat.com/f5645159f6c7c243121ef82ffd9553cf/invoke.js"></script></span>
                 </div>
 
                 <h3>Frequently Asked Questions (FAQ)</h3>
@@ -307,7 +268,38 @@
                 <ul>
                     <li><strong>Is EasyPDF really free?</strong><br>Yes, absolutely. All 29 tools on <strong>EasyPDF</strong> are completely free to use without any restrictions or watermarks. Our goal is to provide accessible tools for everyone.</li>
                     <li><strong>How does EasyPDF keep my files secure?</strong><br>Your security is our top priority. Unlike other sites, <strong>EasyPDF</strong> uses client-side technology. This means your files are processed locally on your own computer. They are never sent over the internet or stored on our servers, guaranteeing your privacy.</li>
+                    <li><strong>Can I use EasyPDF on my phone or tablet?</strong><br>Yes! <strong>EasyPDF</strong> is a fully responsive web application. It's designed to work seamlessly on desktops, tablets, and mobile phones, so you can manage your PDFs wherever you are.</li>
+                    <li><strong>Do I need to create an account?</strong><br>No. We believe in simplicity and speed. You can use all the features of <strong>EasyPDF</strong> without the need to sign up or create an account. Just visit the site and start working.</li>
                 </ul>
+
+                <h3>A Deep Dive into the EasyPDF Suite</h3>
+                <p>The true power of <strong>EasyPDF</strong> lies in its comprehensive and fully functional toolkit. Let's explore the key tools, grouped by their primary function.</p>
+                
+                <h4>Group 1: Document Management and Organization</h4>
+                <ul>
+                    <li><strong>Merge PDF:</strong> Combine multiple PDF files into a single, cohesive document. Perfect for compiling a report from different sources.</li>
+                    <li><strong>Split PDF:</strong> Extract specific pages or page ranges from a large PDF. Share only what's necessary.</li>
+                    <li><strong>Organize PDF:</strong> A powerful visual tool to re-order and delete pages by simply dragging and dropping thumbnails.</li>
+                    <li><strong>Rotate PDF:</strong> Easily fix pages that are scanned in the wrong orientation with a single click.</li>
+                    <li><strong>Add Page Numbers:</strong> Professionalize long documents by automatically inserting page numbers.</li>
+                </ul>
+                
+                <h4>Group 2: The Conversion Powerhouse</h4>
+                <ul>
+                    <li><strong>Office to PDF:</strong> Convert your Word, PowerPoint, and Excel files into universal, professional-looking PDFs.</li>
+                    <li><strong>PDF to JPG / GIF:</strong> Convert each page of your PDF into high-quality images or an animated GIF. The new PDF to GIF tool is perfect for creating shareable content for social media.</li>
+                    <li><strong>Images to PDF:</strong> Compile one or more JPG or PNG images into a single, easy-to-share PDF document.</li>
+                </ul>
+                
+                <h4>Group 3: Advanced Editing and Security</h4>
+                <ul>
+                    <li><strong>Sign PDF:</strong> Electronically sign documents by drawing your signature directly in the browser.</li>
+                    <li><strong>Protect & Unlock PDF:</strong> Add a password to secure your files, or remove a password if you have the key.</li>
+                    <li><strong>OCR PDF:</strong> A game-changing feature that recognizes text in scanned documents, making them searchable and selectable.</li>
+                </ul>
+
+                <h3>Conclusion: Your Go-To Hub for Everything PDF</h3>
+                <p><strong>EasyPDF</strong> was born from a simple idea: that managing PDF files should be easy, free, and above all, secure. By harnessing the power of modern web technologies, <strong>EasyPDF</strong> delivers a comprehensive suite of tools that run entirely in your browser, protecting your data while providing unparalleled functionality. Bookmark it today and experience the future of document management. Experience <strong>EasyPDF</strong>.</p>
             </div>
         </section>
 
@@ -339,27 +331,36 @@
                     </div>
                     <div class="modal-header">
                         <h2 id="modal-tool-title">Tool Title</h2>
-                        <button class="close-button">×</button>
+                        <span class="close-button">×</span>
                     </div>
                     <div class="modal-body">
-                        <div id="tool-content">
-                            <input type="file" id="file-input" class="file-input" name="file-input"/>
-                            <label class="file-drop-area" id="file-drop-area" for="file-input">
+                        <div class="file-drop-area" id="file-drop-area">
+                            <input type="file" id="file-input" class="file-input">
+                            <label for="file-input">
                                 <h3>Drag & Drop file(s) here</h3>
                                 <p>or</p>
                                 <span class="file-label-button">Choose Files</span>
                             </label>
-                            <p id="file-type-info" style="font-size: 0.8rem; color: var(--text-light); margin-top: 10px; text-align: center;"></p>
-                            <ul class="file-list" id="file-list"></ul>
-                            <div class="tool-options" id="tool-options"></div>
-                            <button class="process-button" id="process-button" disabled>Process</button>
-                            <div id="output-area"></div>
+                            <p id="file-type-info" style="font-size: 0.8rem; color: var(--text-light); margin-top: 10px;"></p>
                         </div>
+                        <ul class="file-list" id="file-list"></ul>
+                        <div class="tool-options" id="tool-options"></div>
+                        <button class="process-button" id="process-button" disabled>Process</button>
+                        <div id="output-area"></div>
                     </div>
                 </div>
                 <div class="ad-placeholder ad-sidebar-modal">
                     <!-- PASTE YOUR 160x600 VERTICAL AD CODE HERE -->
-                    <span>Advertisement (160x600)</span>
+                    <span><script type="text/javascript">
+	atOptions = {
+		'key' : '7403d7ddbc143ed7ef55a1dab858d829',
+		'format' : 'iframe',
+		'height' : 600,
+		'width' : 160,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/7403d7ddbc143ed7ef55a1dab858d829/invoke.js"></script></span>
                 </div>
             </div>
         </div>
@@ -387,7 +388,6 @@
         const loaderText = document.getElementById('loader-text');
         const fileTypeInfo = document.getElementById('file-type-info');
         const themeToggle = document.getElementById('checkbox');
-        const toolContent = document.getElementById('tool-content');
 
         // --- App State ---
         let currentToolId = null;
@@ -396,26 +396,24 @@
 
         // --- Colorful Tool Palette ---
         const colors = ['#0d6efd', '#6f42c1', '#d63384', '#dc3545', '#fd7e14', '#ffc107', '#198754', '#20c997', '#0dcaf0'];
-        const bgColors = ['#e7f0fe', '#f1eaff', '#fae7f3', '#fde8e9', '#fff2e4', '#fff8e1', '#e4f4ea', '#e5f9f4', '#e3f9fe'];
         let colorIndex = 0;
 
         // --- Tool Definitions (FULL LIST) ---
         const toolImplementations = {
             'pdf-flipbook': {
-                title: '3D PDF Flipbook', desc: 'View your PDF as an interactive 3D book.', fileType: '.pdf', new: true, icon: `<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>`,
+                title: 'PDF Flipbook', desc: 'View your PDF as an interactive 3D book.', fileType: '.pdf', new: true, icon: `<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>`,
                 onFileSelect: (file) => {
                     if (!file) return;
                     showLoader('Loading Flipbook...');
                     const fileURL = URL.createObjectURL(file);
-                    toolContent.innerHTML = `<div id="flipbook-container"></div>`;
-                    modal.classList.add('flipbook-modal');
+                    toolOptionsContainer.innerHTML = `<div id="flipbook-container"></div>`;
+                    processBtn.style.display = 'none'; // This is a viewer, not a processor
                     $('#flipbook-container').flipBook({
                         pdf: fileURL,
                         onbookcreated: () => {
                             hideLoader();
                             URL.revokeObjectURL(fileURL);
-                        },
-                        sound: true
+                        }
                     });
                 }
             },
@@ -431,7 +429,7 @@
                     const pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
                     const indices = range ? parsePageRanges(range, pdf.numPages) : [...Array(pdf.numPages).keys()];
                     for (const i of indices) {
-                        showLoader(`Processing page ${i + 1}/${indices.length}`);
+                        showLoader(`Processing page ${i + 1}/${pdf.numPages}`);
                         const page = await pdf.getPage(i + 1);
                         const viewport = page.getViewport({ scale: 1.0 });
                         const canvas = document.createElement('canvas');
@@ -696,14 +694,10 @@
                 const tool = toolImplementations[id];
                 const card = document.createElement('div');
                 card.className = 'tool-card reveal';
-                const iconColor = colors[colorIndex % colors.length];
-                const bgColor = bgColors[colorIndex % bgColors.length];
-                colorIndex++;
+                const iconColor = colors[colorIndex++ % colors.length];
                 card.innerHTML = `
                     ${tool.new ? '<div class="new-badge">New!</div>' : ''}
-                    <div class="icon-wrapper" style="--icon-color: ${iconColor}; --icon-bg-color: ${bgColor};">
-                        <div class="icon">${tool.icon}</div>
-                    </div>
+                    <div class="icon" style="--icon-color: ${iconColor};">${tool.icon}</div>
                     <h3>${tool.title}</h3>
                     <p>${tool.desc}</p>
                 `;
@@ -742,46 +736,17 @@
             processBtn.disabled = true;
             fileInput.value = '';
             hideLoader();
-            modal.classList.remove('flipbook-modal');
-            if ($('#flipbook-container').flipBook) {
-                $('#flipbook-container').flipBook('destroy');
-            }
-            // Restore default modal content structure
-            toolContent.innerHTML = `
-                <input type="file" id="file-input" class="file-input" name="file-input"/>
-                <label class="file-drop-area" id="file-drop-area" for="file-input">
-                    <h3>Drag & Drop file(s) here</h3>
-                    <p>or</p>
-                    <span class="file-label-button">Choose Files</span>
-                </label>
-                <p id="file-type-info" style="font-size: 0.8rem; color: var(--text-light); margin-top: 10px; text-align: center;"></p>
-                <ul class="file-list" id="file-list"></ul>
-                <div class="tool-options" id="tool-options"></div>
-                <button class="process-button" id="process-button" disabled>Process</button>
-                <div id="output-area"></div>
-            `;
         };
         
         closeModalBtn.addEventListener('click', closeModal);
         modal.addEventListener('click', (e) => { if (e.target.classList.contains('modal-content-wrapper')) closeModal(); });
-        document.body.addEventListener('dragover', (e) => {
-            if (e.target.id === 'file-drop-area') {
-                e.target.classList.add('dragover');
-            }
-        }, true);
-        document.body.addEventListener('dragleave', (e) => {
-            if (e.target.id === 'file-drop-area') {
-                e.target.classList.remove('dragover');
-            }
-        }, true);
-        document.body.addEventListener('drop', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (e.target.id === 'file-drop-area') {
-                e.target.classList.remove('dragover');
-                _handleFiles(e.dataTransfer.files);
-            }
-        }, true);
+        ['dragenter','dragover','dragleave','drop'].forEach(eName=>fileDropArea.addEventListener(eName, e=>{e.preventDefault();e.stopPropagation();}));
+        fileDropArea.addEventListener('dragover', () => fileDropArea.classList.add('dragover'));
+        fileDropArea.addEventListener('dragleave', () => fileDropArea.classList.remove('dragover'));
+        fileDropArea.addEventListener('drop', (e) => {
+            fileDropArea.classList.remove('dragover');
+            _handleFiles(e.dataTransfer.files);
+        });
         fileInput.addEventListener('change', (e) => _handleFiles(e.target.files));
 
         const _handleFiles = (files) => {
@@ -799,11 +764,7 @@
         };
 
         const updateFileList = () => {
-            const fileListElemDynamic = document.getElementById('file-list');
-            const processBtnDynamic = document.getElementById('process-button');
-            if (!fileListElemDynamic || !processBtnDynamic) return;
-
-            fileListElemDynamic.innerHTML = '';
+            fileListElem.innerHTML = '';
             selectedFiles.forEach((file, index) => {
                 const li = document.createElement('li');
                 li.textContent = file.name;
@@ -812,9 +773,9 @@
                 removeBtn.innerHTML = '×';
                 removeBtn.onclick = () => { selectedFiles.splice(index, 1); updateFileList(); };
                 li.appendChild(removeBtn);
-                fileListElemDynamic.appendChild(li);
+                fileListElem.appendChild(li);
             });
-            processBtnDynamic.disabled = selectedFiles.length === 0;
+            processBtn.disabled = selectedFiles.length === 0;
             if(currentToolId === 'organize-pdf' && selectedFiles.length === 0) {
                  const grid = document.getElementById('organize-pages-grid');
                  if (grid) grid.innerHTML = '';
@@ -834,18 +795,12 @@
         });
 
         // Tool-specific helpers
-        const loadingMessages = ["Brewing your PDF...", "Assembling pixels...", "Working some magic...", "Almost there..."];
-        const showLoader = (text) => { 
-            loaderText.textContent = text || loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
-            loader.style.display = 'flex'; 
-        };
+        const showLoader = (text) => { loaderText.textContent = text; loader.style.display = 'flex'; };
         const hideLoader = () => { loader.style.display = 'none'; };
         const showError = (msg) => { hideLoader(); alert(msg); };
         const createDownloadLink = (data, filename, type) => {
             hideLoader();
-            const outputAreaDynamic = document.getElementById('output-area');
-            if (!outputAreaDynamic) return;
-            outputAreaDynamic.innerHTML = '';
+            outputArea.innerHTML = '';
             const blob = data instanceof Blob ? data : new Blob([data], { type });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -853,7 +808,7 @@
             a.download = filename;
             a.textContent = `Download ${filename}`;
             a.className = 'download-link';
-            outputAreaDynamic.appendChild(a);
+            outputArea.appendChild(a);
         };
         const parsePageRanges = (str, max) => {
             const indices = new Set();
